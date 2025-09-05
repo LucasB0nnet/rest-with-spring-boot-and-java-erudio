@@ -1,0 +1,36 @@
+package br.com.erudio.file.importer.factory;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
+import br.com.erudio.exception.BadRequestException;
+import br.com.erudio.file.importer.contract.FileImporter;
+import br.com.erudio.file.importer.impl.CsvImporter;
+import br.com.erudio.file.importer.impl.XlsxImporter;
+
+@Component
+public class FIleImporterFactory {
+
+	private Logger logger = LoggerFactory.getLogger(FIleImporterFactory.class);
+	
+	@Autowired
+	private ApplicationContext context;
+	
+	public FileImporter getImporter(String fileName) throws Exception {
+		if(fileName.endsWith(".xlsx")) {
+			logger.info("Importing arq " + fileName);
+			return context.getBean(XlsxImporter.class);
+		}
+		else if(fileName.endsWith(".csv")) {
+			logger.info("importing arq " + fileName);
+			return context.getBean(CsvImporter.class);
+			
+		}
+		else {
+			throw new BadRequestException("Invalid File Format!");
+		}
+	}
+}
