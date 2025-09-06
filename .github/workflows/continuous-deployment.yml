@@ -25,7 +25,7 @@ jobs:
           cache: maven
 
       - name: Build Application .jar
-        run: mvn clean package -e -X
+        run: mvn clean package
 
       - name: Docker Compose Build
         run: docker compose build
