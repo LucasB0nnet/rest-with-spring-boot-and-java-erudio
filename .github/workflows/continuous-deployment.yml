@@ -9,34 +9,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-	- name: Verificar estrutura de pastas
-	  run: ls -R
+	  - name: Verificar estrutura de pastas
+	    run: ls -R
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-    - name: Setup Java
-      uses: actions/setup-java@v5
-      with:
-        distribution: 'temurin' # See 'Supported distributions' for available options
-        java-version: '17'
-        cache: maven
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: maven
 
-    - name: Build Application .jar
-      working-directory: ./PROJETOSAWS/rest-with-spring-boot-and-java-erudio
-      run: mvn clean package
+      - name: Build Application .jar
+        working-directory: ./PROJETOSAWS/rest-with-spring-boot-and-java-erudio
+        run: mvn clean package
 
-    - name: Docker Compose Build
-      working-directory: ./PROJETOSAWS
-      run: docker compose build
+      - name: Docker Compose Build
+        working-directory: ./PROJETOSAWS
+        run: docker compose build
 
-    - name: Push to Docker Hub Container Registry
-      run: |
-         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest lucasb0nnet/rest-with-spring-boot-erudio:${{ github.run_id }}
-         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
-         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+      - name: Push to Docker Hub Container Registry
+        run: |
+           docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest lucasb0nnet/rest-with-spring-boot-erudio:${{ github.run_id }}
+           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
+           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
