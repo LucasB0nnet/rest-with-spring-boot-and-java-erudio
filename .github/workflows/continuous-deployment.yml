@@ -32,8 +32,8 @@ jobs:
           java-version: '17'
           cache: maven
 		  
-	  - name: Build Application .jar (skip integration tests)
-		run: mvn clean package -DskipITs -X
+	 - name: Build Application .jar (skip integration tests)
+       run: mvn clean package -DskipITs -X
 
       - name: Docker Compose Build
         run: docker compose build
