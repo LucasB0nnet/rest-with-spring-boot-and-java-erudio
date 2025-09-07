@@ -16,8 +16,10 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: erudio
+
     steps:
-      - uses: actions/checkout@v4	
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -31,7 +33,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-		  
+
+      # Opcional: esperar MySQL subir (remover se não rodar testes)
+      - name: Wait for MySQL
+        run: |
+          for i in {1..15}; do
+            nc -z localhost 3306 && echo "MySQL is up!" && break
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+
       - name: Build Application .jar (skip integration tests)
         run: mvn clean package -DskipITs -X
 
