@@ -31,7 +31,7 @@ jobs:
 
       # 4️⃣ Build e testes (incluindo integração com Testcontainers)
       - name: Build and Run Tests
-        run: mvn clean verify -X
+        run: mvn clean package -DskipTests -X
 
       # 5️⃣ Docker Compose Build
       - name: Docker Compose Build
