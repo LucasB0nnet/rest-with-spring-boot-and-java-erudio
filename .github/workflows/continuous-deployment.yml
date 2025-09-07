@@ -11,11 +11,11 @@ jobs:
     services:
       mysql:
         image: mysql:8.0
-        ports: 
-		  -	3306:3306
-		env:
-		  MYSQL_ROOT_PASSWORD: root
-		  MYSQL_DATABASE: erudio
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: erudio
     steps:
       - uses: actions/checkout@v4	
 
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
+          distribution: 'temurin'
           java-version: '17'
           cache: maven
 
@@ -40,6 +40,6 @@ jobs:
 
       - name: Push to Docker Hub Container Registry
         run: |
-           docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest lucasb0nnet/rest-with-spring-boot-erudio:${{ github.run_id }}
-           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
-           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
