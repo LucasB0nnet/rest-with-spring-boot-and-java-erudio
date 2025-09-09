@@ -1,4 +1,3 @@
-version: '3.4'
 
 services:
   db:
@@ -18,6 +17,9 @@ services:
     networks:
       - erudio-network
   rest-with-spring-boot-erudio:
+    build:
+      context: ./rest-with-spring-boot-and-java-erudio
+      dockerfile: Dockerfile
     image: lucasb0nnet/rest-with-spring-boot-erudio
     restart: always
     build: ./rest-with-spring-boot-and-java-erudio
