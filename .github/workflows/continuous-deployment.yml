@@ -21,17 +21,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      # 3 Setup Java 21
+      # 3 Setup Java 17
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
           cache: maven
 
       # 4 Build e testes (incluindo integração com Testcontainers)
       - name: Build and Run Tests
-        run: mvn clean install -e -X
+        run: mvn clean package
 
       # 5 Docker Compose Build
       - name: Docker Compose Build
