@@ -35,7 +35,7 @@ jobs:
 
       # 5 Docker Compose Build
       - name: Docker Compose Build
-        run: docker compose -f PROJETOSAWS/docker-compose.yml build
+        run: docker compose build
 
       # 6 Push para Docker Hub
       - name: Push Docker Images
