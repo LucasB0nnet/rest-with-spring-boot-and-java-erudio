@@ -31,7 +31,7 @@ jobs:
 
       # 4 Build e testes (incluindo integração com Testcontainers)
       - name: Build and Run Tests
-        run: mvn clean install -U
+        run: mvn clean install -e -X
 
       # 5 Docker Compose Build
       - name: Docker Compose Build
