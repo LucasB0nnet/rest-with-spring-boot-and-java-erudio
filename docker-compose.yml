@@ -18,7 +18,7 @@ services:
       - erudio-network
   rest-with-spring-boot-erudio:
     build:
-      context: ./rest-with-spring-boot-and-java-erudio
+      context: .
       dockerfile: Dockerfile
     image: lucasb0nnet/rest-with-spring-boot-erudio
     restart: always
