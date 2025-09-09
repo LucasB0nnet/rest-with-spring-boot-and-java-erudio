@@ -35,6 +35,7 @@ jobs:
 
       # 5 Docker Compose Build
       - name: Docker Compose Build
+	  	working-directory: ./PROJETOSAWS
         run: docker compose build
 
       # 6 Push para Docker Hub
