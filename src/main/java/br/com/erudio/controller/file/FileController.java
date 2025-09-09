@@ -34,6 +34,13 @@ public class FileController implements FileControllerDocs{
 	@Autowired
 	private FileStorageService service;
 	
+	
+	
+	public FileController(FileStorageService service) {
+
+		this.service = service;
+	}
+
 	@PostMapping("/uploadFile")
 	@Override
 	public UploadFileResponseDTO uploadFile(@RequestParam("file") MultipartFile file) {

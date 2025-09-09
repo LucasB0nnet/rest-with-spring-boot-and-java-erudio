@@ -9,7 +9,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import br.com.erudio.config.TestConfig;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.RestAssured;
-
+@DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SwaggerIntegrationTest extends AbstractIntegrationTest{
 

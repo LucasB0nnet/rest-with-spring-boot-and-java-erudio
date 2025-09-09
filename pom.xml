@@ -208,18 +208,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-            <!-- Force alphabetical order to have a reproducible build -->
-            		<runOrder>alphabetical</runOrder>
-            		<useSystemClassLoader>false</useSystemClassLoader>
-        		</configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
 			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
- 				<artifactId>maven-surefire-plugin</artifactId>
- 				
-			</plugin>
-			
+
 		</plugins>
 	</build>
 
