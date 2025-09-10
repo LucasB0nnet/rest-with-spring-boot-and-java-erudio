@@ -1,5 +1,5 @@
 server:
-  port: 8889
+  port: 0
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000,https://www.erudio.com.br
 file:
@@ -27,8 +27,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${EMAIL_USERNAME}
-    password: ${EMAIL_PASSWORD}
+    username: lucasbonnet688@gmail.com
+    password: zksu ufbw vsfa kuas
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
