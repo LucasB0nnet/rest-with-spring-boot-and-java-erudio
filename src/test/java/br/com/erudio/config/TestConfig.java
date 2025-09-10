@@ -2,7 +2,7 @@ package br.com.erudio.config;
 
 public interface TestConfig {
 
-	int SERVER_PORT = 80;
+	int SERVER_PORT = 8881;
 	
 	String HEADER_PARAM_AUTHORIZATION = "Authorization";
 	
