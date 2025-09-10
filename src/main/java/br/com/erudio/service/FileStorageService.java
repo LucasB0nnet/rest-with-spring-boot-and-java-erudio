@@ -49,7 +49,7 @@ public class FileStorageService {
 
     // Método para armazenar um arquivo recebido via upload
     public String storeFile(MultipartFile file) {
-        // Limpa o nome do arquivo original para evitar problemas com caminhos maliciosos
+        // Limpa o nome do arquivo  original para evitar problemas com caminhos maliciosos
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
