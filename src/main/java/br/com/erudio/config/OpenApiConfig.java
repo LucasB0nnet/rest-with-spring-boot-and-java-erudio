@@ -13,8 +13,8 @@ public class OpenApiConfig {
 	@Bean
 	OpenAPI custonOPenApi() {
 		return new OpenAPI().info(new Info()
-				.title("REST API's RESTfull from 0 whith Java, Spring Boot, KUbernetes and Docker").version("v1")
-				.description("REST API's RESTfull from 0 whith Java, Spring Boot, KUbernetes and Docker"));
+				.title("REST API's RESTfull from 0 whith Java, Spring Boot, Kubernetes and Docker - Foo Bar").version("v1")
+				.description("REST API's RESTfull from 0 whith Java, Spring Boot, Kubernetes and Docker"));
 	}
 
 	@Bean
