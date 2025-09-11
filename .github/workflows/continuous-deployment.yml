@@ -21,6 +21,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      # Login no ECR Amazon
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       # 3 Setup Java 17
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -37,9 +49,24 @@ jobs:
       - name: Docker Compose Build
         run: docker compose build
 
-      # 6 Push para Docker Hub
+      # 6 Push com tag AWS e latest
+      - name: Tag and Push Docker Image to Amazon ECR
+        run: |
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+          docker push ${{ secrets.IMAGE_REPO_URL }}:latest
+          docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+
+      # 7 Push para Docker Hub Container Registry
       - name: Push Docker Images
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
+         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}		  
+
+
+		  
+		  
+		  
+		  
+		  
