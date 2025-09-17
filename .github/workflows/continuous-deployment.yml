@@ -25,7 +25,7 @@ jobs:
       - name: Authenticate GCL
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS}}]
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # 4 Autenticação do Artifact Registry
       - name: Configure Docker Authentication for GCL Artifacty Registry
