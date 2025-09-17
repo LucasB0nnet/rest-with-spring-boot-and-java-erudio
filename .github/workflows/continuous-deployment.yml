@@ -27,7 +27,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS}}]
 
-      # 4 Autenticação do Registry
+      # 4 Autenticação do Artifact Registry
       - name: Configure Docker Authentication for GCL Artifacty Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
