@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      # 3 Login GOOGLECL
+      # 3 Login GCL
       - name: Authenticate GCL
         uses: google-github-actions/auth@v3
         with:
