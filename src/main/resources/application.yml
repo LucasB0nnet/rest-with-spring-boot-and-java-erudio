@@ -17,9 +17,9 @@ spring:
     name: rest-with-spring-boot-and-java-erudio
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://erudio-db-server.cnc46e4uunsj.us-east-2.rds.amazonaws.com/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://34.123.103.136/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
     username: root
-    password: admin.123
+    password: admin123
   jpa:
     hibernate:
       ddl-auto: update

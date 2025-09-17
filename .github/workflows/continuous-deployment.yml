@@ -21,18 +21,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      # 3 Configura credenciais AWS
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      # 3 Login GCL
+      - name: Authenticate GCL
+        uses: google-github-actions/auth@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS}}]
 
-      # 4 Login no ECR Amazon
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      # 4 Autenticação do Registry
+      - name: Configure Docker Authentication for GCL Artifacty Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
 
       # 5 Setup Java 17
       - name: Setup Java
@@ -50,40 +48,17 @@ jobs:
       - name: Docker Compose Build
         run: docker compose build
 
-      # 8 Tag e Push para AWS ECR
-      - name: Tag and Push Docker Image to Amazon ECR
+      # 12 Push para GCL Registry
+      - name: Push to Google Clound Artifact Registry
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:latest
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
-          docker push ${{ secrets.IMAGE_REPO_URL }}:latest
-          docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+          docker push ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:latest
+          docker push ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:${{ github.run_id }}
 
-      # 9 Baixa a definição de tarefa atual do ECS
-      - name: Download task definition
+      - name: Push to Docker Hub Container Registry
         run: |
-          aws ecs describe-task-definition --task-definition ${{ secrets.TASK_DEFINITION_NAME }} --query taskDefinition > task-definition.json
-
-      # 10 Atualiza a task definition com a nova imagem
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: ${{ secrets.CONTAINER_NAME }}
-          image: ${{ secrets.IMAGE_REPO_URL }}:latest
-
-      # 11 Faz o deploy no ECS usando a nova task definition
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ secrets.SERVICE_NAME }}
-          cluster: ${{ secrets.CLUSTER_NAME }}
-          wait-for-service-stability: true
-
-      # 12 Push para Docker Hub
-      - name: Push Docker Images
-        run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:${{ github.run_id }}
           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}	  
+		  

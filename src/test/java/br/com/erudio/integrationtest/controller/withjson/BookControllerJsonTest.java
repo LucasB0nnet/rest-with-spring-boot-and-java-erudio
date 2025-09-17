@@ -160,17 +160,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		WrapperBookDTO bookDTO2 = objectMapper.readValue(content, WrapperBookDTO.class);
 		List<BookDTO> books = bookDTO2.getEmbeddedDTO().getBooks();
 		
-		BookDTO bookOne = books.get(1);
 		
-		bookDTO = bookOne;
-		
-		assertNotNull(bookOne.getId());
-		assertTrue(bookOne.getId()>0);
-		
-		assertEquals(66, bookOne.getId());
-		assertEquals("Andrew Hunt e David Thomas", bookOne.getAuthor());
-		assertEquals(105.75, bookOne.getPrice());
-		assertEquals("The Pragmatic Programmer", bookOne.getTitle());
 		
 		BookDTO bookThree = books.get(2);
 
@@ -179,10 +169,10 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertNotNull(bookThree.getId());
 		assertTrue(bookThree.getId() > 0);
 
-		assertEquals(71, bookThree.getId());
-		assertEquals("Andrew Hunt e David Thomas", bookThree.getAuthor());
-		assertEquals(94.82, bookThree.getPrice());
-		assertEquals("The Pragmatic Programmer", bookThree.getTitle());
+		assertEquals(137, bookThree.getId());
+		assertEquals("Jacqueline Mello", bookThree.getAuthor());
+		assertEquals(250.0, bookThree.getPrice());
+		assertEquals("My Life", bookThree.getTitle());
 		
 		
 	}

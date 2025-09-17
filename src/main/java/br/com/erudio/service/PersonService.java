@@ -32,7 +32,7 @@ import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.file.export.contract.PersonExport;
 import br.com.erudio.file.export.factory.FileExportFactory;
 import br.com.erudio.file.importer.contract.FileImporter;
-import br.com.erudio.file.importer.factory.FIleImporterFactory;
+import br.com.erudio.file.importer.factory.FileImporterFactory;
 import br.com.erudio.mapper.ObjectMapper;
 import br.com.erudio.mapper.custom.PersonMapper;
 import br.com.erudio.model.Person;
@@ -53,7 +53,7 @@ public class PersonService {
 	private PagedResourcesAssembler<PersonDTOV1> assembler;
 
 	@Autowired
-	private FIleImporterFactory fileImporter;
+	private FileImporterFactory fileImporter;
 
 	@Autowired
 	private FileExportFactory fileExport;

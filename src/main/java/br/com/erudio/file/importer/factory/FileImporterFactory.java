@@ -12,9 +12,9 @@ import br.com.erudio.file.importer.impl.CsvImporter;
 import br.com.erudio.file.importer.impl.XlsxImporter;
 
 @Component
-public class FIleImporterFactory {
+public class FileImporterFactory {
 
-	private Logger logger = LoggerFactory.getLogger(FIleImporterFactory.class);
+	private Logger logger = LoggerFactory.getLogger(FileImporterFactory.class);
 	
 	@Autowired
 	private ApplicationContext context;
