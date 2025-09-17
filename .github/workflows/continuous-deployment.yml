@@ -31,7 +31,6 @@ jobs:
       - name: Configure Docker Authentication for GCL Artifacty Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-
       # 5 Setup Java 17
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -48,7 +47,7 @@ jobs:
       - name: Docker Compose Build
         run: docker compose build
 
-      # 12 Push para GCL Registry
+      # 8 Push para GCL Registry
       - name: Push to Google Clound Artifact Registry
         run: |
           docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:latest
@@ -56,6 +55,7 @@ jobs:
           docker push ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:latest
           docker push ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:${{ github.run_id }}
 
+      # 9 Push para GCL Registry
       - name: Push to Docker Hub Container Registry
         run: |
           docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.REGISTRY_INFO }}/rest-with-spring-boot-erudio:${{ github.run_id }}
